@@ -1,5 +1,6 @@
 <script>
-	import Footer from "../libs/components/Footer.svelte";
+	import Cart from "../libs/components/Cart.svelte";
+import Footer from "../libs/components/Footer.svelte";
 	import Header from "../libs/components/Header.svelte";
 	import PlpPageLayout from "../libs/components/PlpPageLayout.svelte";
 
@@ -8,6 +9,8 @@
 	function toggleRTL(){
 		rtl = !rtl;
 	}
+
+	let cartOpen = false;
 
 	$: dir = rtl ? 'rtl' : 'ltr'
 
@@ -19,6 +22,8 @@
 	<PlpPageLayout/>
 	<Footer/>
 </div>
+
+<Cart/>
 
 
 
