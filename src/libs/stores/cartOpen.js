@@ -1,3 +1,3 @@
 import { writable } from "svelte/store";
 
- export const cartOpen = writable(true);
+ export const cartOpen = writable(false);
