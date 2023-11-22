@@ -1,37 +1,29 @@
-import { readonly, writable } from "svelte/store";
-import { cartOpen } from "./cartOpen";
+import { readonly, writable } from 'svelte/store';
+import { cartOpen } from './cartOpen';
+import { persisted } from 'svelte-persisted-store';
 
+const items = persisted('cart.items', {});
 
+export function addToCart(title, variant) {
+	const productData = { title, ...variant };
 
-const items =  writable({});
+	items.update((state) => {
+		const sku = variant.sku;
 
+		state[sku] = productData;
 
-export function addToCart( title, variant){
+		return state;
+	});
 
-    const productData = {title , ...variant};
-
-    items.update( (state) => {
-
-        const sku = variant.sku;
-
-        state[sku] = productData;
-
-        return state;
-
-        
-    });
-
-    cartOpen.set(true);
-
+	cartOpen.set(true);
 }
 
-export function removeFromCart(sku){
-    items.update( (state) => {
+export function removeFromCart(sku) {
+	items.update((state) => {
+		delete state[sku];
 
-        delete state[sku];
-
-        return state;
-    })
+		return state;
+	});
 }
 
 export const cartItems = readonly(items);
